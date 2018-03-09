@@ -8,7 +8,8 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <a href={"http://127.0.0.1:3001/auth/" + this.printName()}>Login with {this.printName()}!</a>
+        <span className={"fa fa-2x fa-" + this.printName()}></span>
+        <a href={"http://localhost:3001/auth/" + this.printName()}>Login with {this.printName()}!</a>
       </div>
     );
   }

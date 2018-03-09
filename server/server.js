@@ -10,18 +10,21 @@ var routes = require("./routes/index.js");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("keyboard cat"));
 app.use(
   session({
     secret: "keyboard cat",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+      expires: false
+    }
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
 
-require("./auth/_passport");
+require("./config/_passport")(passport);
 
 app.use("/", routes);
 
