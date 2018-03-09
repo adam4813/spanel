@@ -18,10 +18,14 @@
     "eject": "react-scripts eject",
     "lint": "esw webpack.config.* src tools --color",
     "lint-fix": "esw webpack.config.* src tools --fix",
-    "lint:watch": "npm run lint -- --watch"
+    "lint:watch": "npm run lint -- --watch",
+    "start-concur": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/server.js",
+    "client": "npm start"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "concurrently": "^3.5.1",
     "eslint": "^4.1.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-react-app": "^2.1.0",
@@ -31,5 +35,6 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.1.0",
     "prettier": "^1.11.0"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }
