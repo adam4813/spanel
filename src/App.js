@@ -9,6 +9,24 @@ import FacebookLogin from "./components/login/FacebookLogin";
 import TwitterLogin from "./components/login/TwitterLogin";
 
 class App extends Component {
+  componentWillMount() {
+    fetch("/api/profile", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      credentials: "include"
+    })
+      .then(response => {
+        console.log(response);
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then(function(data) {
+        console.log(data);
+      });
+  }
   render() {
     return (
       <BrowserRouter>

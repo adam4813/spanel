@@ -8,6 +8,13 @@ router.get("/login", function (req, res, next) {
 router.get("/success", function (req, res, next) {
   res.redirect("http://localhost:3000/success");
 });
+router.get("/api/profile", function (req, res, next) {
+  if (!req.user) {
+    res.status(401);
+  } else {
+    res.json(req.user);
+  }
+});
 
 router.get("/auth/twitter", passport.authenticate("twitter"));
 router.get(
