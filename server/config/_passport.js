@@ -51,7 +51,7 @@ module.exports = function (passport) {
           name: profile.displayName,
           someID: profile.id,
           facebook: {
-            name: profile.name.displayName,
+            name: profile.displayName,
             id: profile.id,
             token: accessToken
           }
@@ -74,7 +74,7 @@ module.exports = function (passport) {
           name: profile.displayName,
           someID: profile.id,
           google: {
-            name: profile.name.displayName,
+            name: profile.displayName,
             id: profile.id,
             token: accessToken
           }

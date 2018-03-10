@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
-import OverviewList from "./containers/OverviewList";
-import LoginPanel from "./components/LoginPanel";
-import GoogleLogin from "./components/login/GoogleLogin";
-import FacebookLogin from "./components/login/FacebookLogin";
-import TwitterLogin from "./components/login/TwitterLogin";
+import Header from "./components/Header";
 
 class App extends Component {
   componentWillMount() {
@@ -18,30 +14,21 @@ class App extends Component {
       credentials: "include"
     })
       .then(response => {
-        console.log(response);
         if (response.ok) {
           return response.json();
         }
       })
-      .then(function(data) {
-        console.log(data);
-      });
+      .then(
+      function (data) {
+        this.setState({ profile: data });
+      }.bind(this)
+      );
   }
   render() {
     return (
       <BrowserRouter>
         <div className="container">
-          <div className="row">
-            <div className="col-sm-2">
-              <LoginPanel name="Google"><GoogleLogin /></LoginPanel>
-            </div>
-            <div className="col-sm-2">
-              <LoginPanel name="Facebook"><FacebookLogin /></LoginPanel>
-            </div>
-            <div className="col-sm-2">
-              <LoginPanel name="Facebook"><TwitterLogin /></LoginPanel>
-            </div>
-          </div>
+          <Header {...this.state} />
         </div>
       </BrowserRouter>
     );

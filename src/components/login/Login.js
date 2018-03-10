@@ -6,10 +6,26 @@ class Login extends Component {
   }
 
   render() {
+    let buttonMode = "btn-primary";
+    let profile = this.props[this.printName()];
+    if (profile) {
+      if (profile.token !== "") {
+        buttonMode = "btn-success";
+      } else {
+        buttonMode = "btn-danger";
+      }
+    }
     return (
       <div>
-        <span className={"fa fa-2x fa-" + this.printName()}></span>
-        <a href={"http://localhost:3001/auth/" + this.printName()}>Login with {this.printName()}!</a>
+        <a
+          className={"btn " + buttonMode}
+          href={"http://localhost:3001/auth/" + this.printName()}
+          role="button"
+        >
+          <span className={"fa fa-2x fa-" + this.printName()}>
+            &nbsp; {this.printName()}
+          </span>
+        </a>
       </div>
     );
   }
