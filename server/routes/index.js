@@ -48,6 +48,7 @@ router.get(
     failureRedirect: "/login"
   })
 );
+router.get("/auth/connect/twitter", passport.authorize("twitter"));
 
 router.get("/auth/disconnect/facebook", function (req, res) {
   axios
@@ -72,6 +73,7 @@ router.get("/auth/disconnect/facebook", function (req, res) {
       res.redirect("http://localhost:3000/success");
     });
 });
+router.get("/auth/connect/facebook", passport.authorize("facebook"));
 
 router.get("/auth/google", passport.authenticate("google"));
 router.get(
@@ -81,6 +83,7 @@ router.get(
     failureRedirect: "/login"
   })
 );
+router.get("/auth/connect/google", passport.authorize("google"));
 
 router.get("/auth/disconnect/google", function (req, res) {
   axios

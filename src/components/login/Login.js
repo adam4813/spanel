@@ -17,7 +17,7 @@ class Login extends Component {
     }
     let url =
       "http://localhost:3001/auth/" +
-      (buttonMode === "btn-success" ? "disconnect/" : "") +
+      (buttonMode === "btn-success" ? "disconnect/" : "connect/") +
       this.printName();
     return (
       <div>
