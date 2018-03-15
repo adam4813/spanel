@@ -37,6 +37,8 @@ require("./config/_passport")(passport); // passport strategies
 // Routing
 var routes = require("./routes/index.js");
 app.use("/", routes);
+var socialRoutes = require("./routes/socialRoutes.js");
+app.use("/", socialRoutes);
 
 // App init
 app.set("port", process.env.PORT || 3001);

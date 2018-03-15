@@ -67,7 +67,7 @@ module.exports = function (passport) {
         clientSecret: config.facebook.clientSecret,
         callbackURL: config.facebook.callbackURL,
         profileFields: ["id", "email", "displayName"],
-        scope: ["email"],
+        scope: ["email", "publish_actions"],
         passReqToCallback: true
       },
       (req, accessToken, refreshToken, profile, done) => {

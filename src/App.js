@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
 import Header from "./components/Header";
+import PostBox from "./components/PostBox";
 
 class App extends Component {
   componentWillMount() {
@@ -29,6 +30,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="container">
           <Header {...this.state} />
+          <PostBox />
         </div>
       </BrowserRouter>
     );
