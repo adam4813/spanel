@@ -5,17 +5,13 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.0.0",
-    "fb": "^2.0.0",
     "font-awesome": "^4.7.0",
-    "mongoose-express-session": "0.0.5",
-    "passport-google-oauth20": "^1.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
-    "redux": "^3.7.2",
-    "twitter": "^1.7.1"
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",

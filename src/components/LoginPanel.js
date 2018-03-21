@@ -2,11 +2,7 @@
 
 class LoginPanel extends Component {
   render() {
-    return (
-      <div className="col col-md-auto">
-        {this.props.children}
-      </div>
-    );
+    return <div className="col col-md-auto">{this.props.children}</div>;
   }
 }
 

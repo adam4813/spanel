@@ -3,7 +3,7 @@
 class FacebookLogin extends Login {
   printName() {
     return "facebook";
-  };
+  }
 }
 
 export default FacebookLogin;

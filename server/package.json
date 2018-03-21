@@ -9,9 +9,11 @@
     "express": "4.13.3",
     "express-session": "^1.11.3",
     "facebook-node-sdk": "^0.2.0",
-    "fs": "0.0.2",
+    "fb": "^2.0.0",
+    "mongoose-express-session": "0.0.5",
     "passport": "^0.3.0",
     "passport-facebook": "^2.1.1",
+    "passport-google-oauth20": "^1.0.0",
     "passport-linkedin": "^1.0.0",
     "passport-twitch": "^1.0.3",
     "passport-twitter": "^1.0.3",
@@ -23,14 +25,20 @@
     "server": "node server.js",
     "client": "node start-client.js",
     "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
   },
   "devDependencies": {
-    "concurrently": "3.1.0",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "14.1.0",
-    "eslint-plugin-import": "2.2.0",
-    "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.9.0"
+    "babel-eslint": "^7.2.3",
+    "concurrently": "^3.5.1",
+    "eslint": "^4.1.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.34.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.1.0",
+    "prettier": "^1.11.0"
   }
 }

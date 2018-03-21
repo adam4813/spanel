@@ -9,8 +9,8 @@ var socialAPIs = {
 };
 
 var SocialAPIRouter = {
-  postMessage: function (user, accounts, message) {
-    for (account in accounts) {
+  postMessage: function(user, accounts, message) {
+    for (var account in accounts) {
       if (socialAPIs[accounts[account]]) {
         socialAPIs[accounts[account]].postMessage(user, message);
       }

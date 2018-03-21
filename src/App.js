@@ -20,9 +20,9 @@ class App extends Component {
         }
       })
       .then(
-      function (data) {
-        this.setState({ profile: data });
-      }.bind(this)
+        function(data) {
+          this.setState({ profile: data });
+        }.bind(this)
       );
   }
   render() {

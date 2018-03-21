@@ -61,7 +61,7 @@ router.get("/auth/disconnect/facebook", function(req, res) {
         req.user.facebook.token
     )
     .then(response => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         user.update(
           { _id: req.session.passport.user },
           {
@@ -93,7 +93,7 @@ router.get("/auth/disconnect/google", function(req, res) {
         req.user.google.token
     )
     .then(response => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         user.update(
           { _id: req.session.passport.user },
           {
@@ -127,7 +127,7 @@ router.get("/auth/disconnect/twitch", function(req, res) {
         req.user.twitch.token
     )
     .then(response => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         user.update(
           { _id: req.session.passport.user },
           {

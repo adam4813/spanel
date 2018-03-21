@@ -6,13 +6,13 @@ var TwitchStrategy = require("passport-twitch").Strategy;
 var User = require("../models/user");
 var config = require("./_config");
 
-module.exports = function (passport) {
-  passport.serializeUser(function (user, done) {
+module.exports = function(passport) {
+  passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
 
-  passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
       done(err, user);
     });
   });
@@ -28,7 +28,7 @@ module.exports = function (passport) {
         passReqToCallback: true
       },
       (req, accessToken, secretToken, profile, done) => {
-        process.nextTick(function () {
+        process.nextTick(function() {
           if (!req.user) {
             var updates = {
               twitter: {
@@ -51,7 +51,7 @@ module.exports = function (passport) {
             user.twitter.displayName = profile.displayName;
             user.twitter.secret = secretToken;
 
-            user.save(function (err) {
+            user.save(function(err) {
               if (err) {
                 throw err;
               }
@@ -74,7 +74,7 @@ module.exports = function (passport) {
         passReqToCallback: true
       },
       (req, accessToken, refreshToken, profile, done) => {
-        process.nextTick(function () {
+        process.nextTick(function() {
           if (!req.user) {
             var updates = {
               facebook: {
@@ -97,7 +97,7 @@ module.exports = function (passport) {
             user.facebook.name = profile.displayName;
             user.facebook.email = profile.emails[0].value;
 
-            user.save(function (err) {
+            user.save(function(err) {
               if (err) {
                 throw err;
               }
@@ -120,7 +120,7 @@ module.exports = function (passport) {
         passReqToCallback: true
       },
       (req, accessToken, refreshToken, profile, done) => {
-        process.nextTick(function () {
+        process.nextTick(function() {
           if (!req.user) {
             var updates = {
               google: {
@@ -143,7 +143,7 @@ module.exports = function (passport) {
             user.google.name = profile.displayName;
             user.google.email = profile.emails[0].value;
 
-            user.save(function (err) {
+            user.save(function(err) {
               if (err) {
                 throw err;
               }
@@ -166,7 +166,7 @@ module.exports = function (passport) {
         passReqToCallback: true
       },
       (req, accessToken, refreshToken, profile, done) => {
-        process.nextTick(function () {
+        process.nextTick(function() {
           if (!req.user) {
             var updates = {
               twitch: {
@@ -189,7 +189,7 @@ module.exports = function (passport) {
             user.twitch.name = profile.displayName;
             user.twitch.email = profile.email;
 
-            user.save(function (err) {
+            user.save(function(err) {
               if (err) {
                 throw err;
               }
@@ -207,7 +207,7 @@ module.exports = function (passport) {
     };
 
     // update the user if s/he exists or add a new user
-    User.findOneAndUpdate(search, updates, options, function (err, user) {
+    User.findOneAndUpdate(search, updates, options, function(err, user) {
       if (err) {
         return done(err);
       } else {
