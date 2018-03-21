@@ -1,11 +1,11 @@
 ﻿var FB = require("fb");
 
 var FacebookAPI = {
-  postMessage: function (token, message) {
+  postMessage: function (user, message) {
     FB.api(
       "me/feed",
       "post",
-      { message: message, access_token: token },
+      { message: message, access_token: user.facebook.token },
       function (res) {
         if (!res || res.error) {
           console.log(!res ? "error occurred" : res.error);

@@ -26,14 +26,15 @@ module.exports = function (passport) {
         scope: ["email"],
         passReqToCallback: true
       },
-      (req, accessToken, refreshToken, profile, done) => {
+      (req, accessToken, secretToken, profile, done) => {
         process.nextTick(function () {
           if (!req.user) {
             var updates = {
               twitter: {
                 displayName: profile.displayName,
                 id: profile.id,
-                token: accessToken
+                token: accessToken,
+                secret: secretToken
               }
             };
             findUserOrCreate(
@@ -47,6 +48,7 @@ module.exports = function (passport) {
             user.twitter.id = profile.id;
             user.twitter.token = accessToken;
             user.twitter.displayName = profile.displayName;
+            user.twitter.secret = secretToken;
 
             user.save(function (err) {
               if (err) {

@@ -15,7 +15,7 @@ class PostBox extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    var data = { message: this.state.message };
+    var data = { message: this.state.message, accounts: ["facebook", "twitter"] };
     fetch("/api/social/post", {
       headers: {
         "Content-Type": "application/json"
