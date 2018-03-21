@@ -4,6 +4,7 @@ import LoginPanel from "./LoginPanel";
 import GoogleLogin from "./login/GoogleLogin";
 import FacebookLogin from "./login/FacebookLogin";
 import TwitterLogin from "./login/TwitterLogin";
+import TwitchLogin from "./login/TwitchLogin";
 
 class Header extends Component {
   render() {
@@ -18,6 +19,9 @@ class Header extends Component {
           </LoginPanel>
           <LoginPanel name="Twitter">
             <TwitterLogin {...this.props.profile} />
+          </LoginPanel>
+          <LoginPanel name="Twitch">
+            <TwitchLogin {...this.props.profile} />
           </LoginPanel>
         </div>
       </div>

@@ -1,9 +1,11 @@
 ﻿var facebookAPI = require("./_fb");
 var twitterAPI = require("./_twitter");
+var twitchAPI = require("./_twitch");
 
 var socialAPIs = {
   facebook: facebookAPI,
-  twitter: twitterAPI
+  twitter: twitterAPI,
+  twitch: twitchAPI
 };
 
 var SocialAPIRouter = {

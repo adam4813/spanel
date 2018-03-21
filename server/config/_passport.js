@@ -1,6 +1,7 @@
 ﻿var TwitterStrategy = require("passport-twitter").Strategy;
 var FacebookStrategy = require("passport-facebook").Strategy;
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
+var TwitchStrategy = require("passport-twitch").Strategy;
 
 var User = require("../models/user");
 var config = require("./_config");
@@ -141,6 +142,52 @@ module.exports = function (passport) {
             user.google.token = accessToken;
             user.google.name = profile.displayName;
             user.google.email = profile.emails[0].value;
+
+            user.save(function (err) {
+              if (err) {
+                throw err;
+              }
+              return done(null, user);
+            });
+          }
+        });
+      }
+    )
+  );
+
+  passport.use(
+    new TwitchStrategy(
+      {
+        clientID: config.twitch.clientID,
+        clientSecret: config.twitch.clientSecret,
+        callbackURL: config.twitch.callbackURL,
+        profileFields: ["id", "email", "displayName"],
+        scope: ["channel_feed_edit", "user_read"],
+        passReqToCallback: true
+      },
+      (req, accessToken, refreshToken, profile, done) => {
+        process.nextTick(function () {
+          if (!req.user) {
+            var updates = {
+              twitch: {
+                id: profile.id,
+                token: accessToken,
+                name: profile.displayName,
+                email: profile.email
+              }
+            };
+            findUserOrCreate(
+              accessToken,
+              { "twitch.id": profile.id },
+              updates,
+              done
+            );
+          } else {
+            var user = req.user;
+            user.twitch.id = profile.id;
+            user.twitch.token = accessToken;
+            user.twitch.name = profile.displayName;
+            user.twitch.email = profile.email;
 
             user.save(function (err) {
               if (err) {

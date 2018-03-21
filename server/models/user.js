@@ -20,6 +20,12 @@ var User = new Schema({
     token: String,
     email: String,
     name: String
+  },
+  twitch: {
+    id: String,
+    token: String,
+    email: String,
+    name: String
   }
 });
 
