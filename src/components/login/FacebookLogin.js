@@ -1,6 +1,6 @@
-﻿import Login from "./Login";
+﻿import AccountButton from "./AccountButton";
 
-class FacebookLogin extends Login {
+class FacebookLogin extends AccountButton {
   printName() {
     return "facebook";
   }

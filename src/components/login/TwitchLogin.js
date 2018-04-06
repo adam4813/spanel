@@ -1,6 +1,6 @@
-﻿import Login from "./Login";
+﻿import AccountButton from "./AccountButton";
 
-class TwitchLogin extends Login {
+class TwitchLogin extends AccountButton {
   printName() {
     return "twitch";
   }

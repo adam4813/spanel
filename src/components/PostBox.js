@@ -41,19 +41,16 @@ class PostBox extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Message:
-            <input
-              type="test"
-              name="message"
-              value={this.state.message}
-              onChange={this.handleChange}
-            />
-          </label>
-          <input type="submit" value="Send" />
-        </form>
+      <div className="col-auto">
+        <label>
+          Message:
+          <input
+            type="test"
+            name="message"
+            value={this.state.message}
+            onChange={this.handleChange}
+          />
+        </label>
       </div>
     );
   }

@@ -26,3 +26,22 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+@media (max-width: 600px) {
+    #account-list-header {
+        display: flex;
+    }
+    #account-list {
+        display: none;
+    }
+}
+
+@media (min-width: 600px) {
+    #account-list-header {
+        display: none;
+    }
+
+    #account-list {
+        display: flex;
+    }
+}

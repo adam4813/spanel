@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
-import Header from "./components/Header";
 import PostBox from "./components/PostBox";
+import AccountList from "./components/AccountList";
 
 class App extends Component {
   componentWillMount() {
@@ -17,6 +17,8 @@ class App extends Component {
       .then(response => {
         if (response.ok) {
           return response.json();
+        } else {
+          console.log(response.toString());
         }
       })
       .then(
@@ -29,8 +31,20 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="container">
-          <Header {...this.state} />
-          <PostBox />
+          <div className="row">
+            <PostBox />
+          </div>
+          <div className="row">
+            <AccountList {...this.state} />
+          </div>
+          <div className="row">
+            <div className="col col-2">content</div>
+            <div className="col align-self-end">
+              <form onSubmit={this.handleSubmit}>
+                <input type="submit" value="Send" />
+              </form>
+            </div>
+          </div>
         </div>
       </BrowserRouter>
     );

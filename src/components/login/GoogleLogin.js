@@ -1,6 +1,6 @@
-﻿import Login from "./Login";
+﻿import AccountButton from "./AccountButton";
 
-class GoogleLogin extends Login {
+class GoogleLogin extends AccountButton {
   printName() {
     return "google";
   }
