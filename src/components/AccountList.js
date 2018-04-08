@@ -13,10 +13,22 @@ class AccountList extends Component {
         <div id="account-list-header">Account List =</div>
         <div className="btn-toolbar" id="account-list" role="toolbar">
           <div className="btn-group-vertical w-100" role="group">
-            <GoogleLogin {...this.props.profile} />
-            <FacebookLogin {...this.props.profile} />
-            <TwitterLogin {...this.props.profile} />
-            <TwitchLogin {...this.props.profile} />
+            <GoogleLogin
+              {...this.props.profile}
+              toggleAccount={this.props.toggleAccount}
+            />
+            <FacebookLogin
+              {...this.props.profile}
+              toggleAccount={this.props.toggleAccount}
+            />
+            <TwitterLogin
+              {...this.props.profile}
+              toggleAccount={this.props.toggleAccount}
+            />
+            <TwitchLogin
+              {...this.props.profile}
+              toggleAccount={this.props.toggleAccount}
+            />
           </div>
         </div>
         <AddAccount />

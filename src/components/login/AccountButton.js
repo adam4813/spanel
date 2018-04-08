@@ -26,17 +26,17 @@ class AccountButton extends Component {
   toggleOn = event => {
     event.preventDefault();
     event.stopPropagation();
-    console.log(event);
+    this.props.toggleAccount(this.printName(), true);
   };
 
   toggleOff = event => {
     event.preventDefault();
     event.stopPropagation();
-    console.log(event);
+    this.props.toggleAccount(this.printName(), false);
   };
 
   render() {
-    let buttonMode = "btn-primary";
+    let buttonMode = "btn-secondary";
     let profile = this.props[this.printName()];
     if (profile) {
       if (profile.token !== undefined && profile.token !== null) {
