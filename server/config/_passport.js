@@ -29,35 +29,14 @@ module.exports = function(passport) {
       },
       (req, accessToken, secretToken, profile, done) => {
         process.nextTick(function() {
-          if (!req.user) {
-            var updates = {
-              twitter: {
-                displayName: profile.displayName,
-                id: profile.id,
-                token: accessToken,
-                secret: secretToken
-              }
-            };
-            findUserOrCreate(
-              accessToken,
-              { "twitter.id": profile.id },
-              updates,
-              done
-            );
-          } else {
-            var user = req.user;
-            user.twitter.id = profile.id;
-            user.twitter.token = accessToken;
-            user.twitter.displayName = profile.displayName;
-            user.twitter.secret = secretToken;
-
-            user.save(function(err) {
-              if (err) {
-                throw err;
-              }
-              return done(null, user);
-            });
-          }
+          var updateData = {
+            provider: "twitter",
+            name: profile.displayName,
+            id: profile.id,
+            token: accessToken,
+            secret: secretToken
+          };
+          addOrUpdateProvider(req.user ? req.user._id : null, updateData, done);
         });
       }
     )
@@ -75,35 +54,14 @@ module.exports = function(passport) {
       },
       (req, accessToken, refreshToken, profile, done) => {
         process.nextTick(function() {
-          if (!req.user) {
-            var updates = {
-              facebook: {
-                name: profile.displayName,
-                id: profile.id,
-                token: accessToken,
-                email: profile.emails[0].value
-              }
-            };
-            findUserOrCreate(
-              accessToken,
-              { "facebook.id": profile.id },
-              updates,
-              done
-            );
-          } else {
-            var user = req.user;
-            user.facebook.id = profile.id;
-            user.facebook.token = accessToken;
-            user.facebook.name = profile.displayName;
-            user.facebook.email = profile.emails[0].value;
-
-            user.save(function(err) {
-              if (err) {
-                throw err;
-              }
-              return done(null, user);
-            });
-          }
+          var updateData = {
+            provider: "facebook",
+            name: profile.displayName,
+            id: profile.id,
+            token: accessToken,
+            email: profile.emails[0].value
+          };
+          addOrUpdateProvider(req.user ? req.user._id : null, updateData, done);
         });
       }
     )
@@ -121,35 +79,14 @@ module.exports = function(passport) {
       },
       (req, accessToken, refreshToken, profile, done) => {
         process.nextTick(function() {
-          if (!req.user) {
-            var updates = {
-              google: {
-                name: profile.displayName,
-                id: profile.id,
-                token: accessToken,
-                email: profile.emails[0].value
-              }
-            };
-            findUserOrCreate(
-              accessToken,
-              { "google.id": profile.id },
-              updates,
-              done
-            );
-          } else {
-            var user = req.user;
-            user.google.id = profile.id;
-            user.google.token = accessToken;
-            user.google.name = profile.displayName;
-            user.google.email = profile.emails[0].value;
-
-            user.save(function(err) {
-              if (err) {
-                throw err;
-              }
-              return done(null, user);
-            });
-          }
+          var updateData = {
+            provider: "google",
+            name: profile.displayName,
+            id: profile.id,
+            token: accessToken,
+            email: profile.emails[0].value
+          };
+          addOrUpdateProvider(req.user ? req.user._id : null, updateData, done);
         });
       }
     )
@@ -167,52 +104,68 @@ module.exports = function(passport) {
       },
       (req, accessToken, refreshToken, profile, done) => {
         process.nextTick(function() {
-          if (!req.user) {
-            var updates = {
-              twitch: {
-                id: profile.id,
-                token: accessToken,
-                name: profile.displayName,
-                email: profile.email
-              }
-            };
-            findUserOrCreate(
-              accessToken,
-              { "twitch.id": profile.id },
-              updates,
-              done
-            );
-          } else {
-            var user = req.user;
-            user.twitch.id = profile.id;
-            user.twitch.token = accessToken;
-            user.twitch.name = profile.displayName;
-            user.twitch.email = profile.email;
-
-            user.save(function(err) {
-              if (err) {
-                throw err;
-              }
-              return done(null, user);
-            });
-          }
+          var updateData = {
+            provider: "twitch",
+            id: profile.id,
+            token: accessToken,
+            name: profile.displayName,
+            email: profile.email
+          };
+          addOrUpdateProvider(req.user ? req.user._id : null, updateData, done);
         });
       }
     )
   );
 
-  function findUserOrCreate(accessToken, search, updates, done) {
-    var options = {
-      upsert: true
-    };
-
-    // update the user if s/he exists or add a new user
-    User.findOneAndUpdate(search, updates, options, function(err, user) {
-      if (err) {
-        return done(err);
-      } else {
-        return done(null, user);
-      }
-    });
+  function addOrUpdateProvider(userId, updateData, done) {
+    if (userId === null) {
+      User.create({ accounts: [updateData] }, function(err, user) {
+        if (err) {
+          return done(err);
+        } else {
+          return done(null, user);
+        }
+      });
+    } else {
+      let search = {
+        _id: userId,
+        accounts: {
+          $elemMatch: {
+            provider: updateData.provider
+          }
+        }
+      };
+      User.count(search, function(err, count) {
+        var update;
+        if (count == 0) {
+          // Just search with the userId as the userId/provider combo doesn't exists, but the userId might.
+          search = { _id: userId };
+          update = {
+            $push: {
+              accounts: [updateData]
+            }
+          };
+        } else {
+          update = {
+            $set: { "accounts.$": updateData }
+          };
+        }
+        User.findOneAndUpdate(
+          search,
+          update,
+          {
+            upsert: true,
+            new: true
+          },
+          function(err, user) {
+            if (err) {
+              return done(err);
+            } else {
+              return done(null, user);
+            }
+          }
+        );
+      });
+    }
   }
 };

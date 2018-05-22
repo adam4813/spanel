@@ -19,9 +19,6 @@ app.use(
     resave: true,
     saveUninitialized: true,
     rolling: false,
-    cookie: {
-      expires: false
-    },
     store: new MongooseStore({
       connection: mongoose
     })
@@ -37,8 +34,10 @@ require("./config/_passport")(passport); // passport strategies
 // Routing
 var routes = require("./routes/index.js");
 app.use("/", routes);
-var socialRoutes = require("./routes/socialRoutes.js");
-app.use("/", socialRoutes);
+var authRoutes = require("./routes/authRoutes");
+app.use("/auth", authRoutes);
+var socialRoutes = require("./routes/socialRoutes");
+app.use("/api/social", socialRoutes);
 
 // App init
 app.set("port", process.env.PORT || 3001);

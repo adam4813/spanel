@@ -45,3 +45,31 @@
         display: flex;
     }
 }
+
+#primary-message-box {
+    font-size: xx-large;
+}
+
+#post-area {
+    height: 100vh;
+    -webkit-transition: height 1s;
+    -moz-transition: height 1s;
+    transition: height 1s;
+}
+
+#customize-button {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.1s, visibility 0.1s;
+    -moz-transition: opacity 0.1s, visibility 0.1s;
+    transition: opacity 0.1s, visibility 0.1s;
+}
+
+.message-box {
+    font-weight: bold;
+}
+
+.whole-screen {
+    overflow: hidden;
+    height: 100vh;
+}

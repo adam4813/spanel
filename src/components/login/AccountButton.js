@@ -9,7 +9,20 @@ class AccountButton extends Component {
     event.preventDefault();
     event.stopPropagation();
 
-    let profile = this.props[this.printName()];
+    let profile = this.props.profile;
+    if (!profile || (profile.token === undefined || profile.token === null)) {
+      window.location =
+        "http://localhost:3001/auth/connect/" + this.printName();
+    }
+  };
+
+  handleReconnect = event => {
+    event.preventDefault();
+    event.stopPropagation();
+    event.target.style.display = "none";
+    document.getElementById("google-disconnect_btn").style.display = "default";
+
+    let profile = this.props.profile;
     if (!profile || (profile.token === undefined || profile.token === null)) {
       window.location =
         "http://localhost:3001/auth/connect/" + this.printName();
@@ -19,6 +32,8 @@ class AccountButton extends Component {
   handleDisconnect = event => {
     event.preventDefault();
     event.stopPropagation();
+    event.target.style.display = "none";
+    document.getElementById("google-reconnect_btn").style.display = "default";
     window.location =
       "http://localhost:3001/auth/disconnect/" + this.printName();
   };
@@ -26,20 +41,26 @@ class AccountButton extends Component {
   toggleOn = event => {
     event.preventDefault();
     event.stopPropagation();
-    this.props.toggleAccount(this.printName(), true);
+    this.props.toggleAccount(this.printName(), true, this.props.profile._id);
+    document.getElementById("google-button").classList.remove("btn-danger");
+    document.getElementById("google-button").classList.add("btn-success");
   };
 
   toggleOff = event => {
     event.preventDefault();
     event.stopPropagation();
-    this.props.toggleAccount(this.printName(), false);
+    this.props.toggleAccount(this.printName(), false, this.props.profile._id);
+    document.getElementById("google-button").classList.remove("btn-success");
+    document.getElementById("google-button").classList.add("btn-danger");
   };
 
   render() {
     let buttonMode = "btn-secondary";
-    let profile = this.props[this.printName()];
-    if (profile) {
-      if (profile.token !== undefined && profile.token !== null) {
+    if (this.props.profile) {
+      if (
+        this.props.profile.token !== undefined &&
+        this.props.profile.token !== null
+      ) {
         buttonMode = "btn-success";
       } else {
         buttonMode = "btn-danger";
@@ -47,52 +68,66 @@ class AccountButton extends Component {
     }
     return (
       <button
+        id={this.printName() + "-button"}
         className={"text-left border btn " + buttonMode}
         onClick={this.handleClick}
       >
         <span className={"fa fa-2x fa-" + this.printName()}>
           &nbsp; {this.printName()}
         </span>
-        <div
-          className="btn-group btn-group-toggle float-right"
-          data-toggle="buttons"
-          id={this.printName() + "-on_toggle"}
-          style={{ width: "auto" }}
-        >
-          <label
-            className="btn btn-sm btn-light active text-success"
-            onClick={this.toggleOn}
+        {this.props.login ? null : (
+          <div
+            className="btn-group btn-group-toggle float-right"
+            data-toggle="buttons"
+            id={this.printName() + "-on_toggle"}
+            style={{ width: "auto" }}
           >
-            <input
-              type="radio"
-              name="options"
-              id="option1"
-              autoComplete="off"
-              defaultChecked
-            />
-            ON
-          </label>
-          <label
-            className="btn btn-sm btn-light text-dark"
-            id={this.printName() + "-off_toggle"}
-            onClick={this.toggleOff}
-          >
-            <input
-              type="radio"
-              name="options"
-              id="option2"
-              autoComplete="off"
-            />
-            OFF
-          </label>
-          <span
-            className="btn btn-sm btn-danger"
-            onClick={this.handleDisconnect}
-            title="Disconnect Account"
-          >
-            X
-          </span>
-        </div>
+            <label
+              className="btn btn-sm btn-light active text-success"
+              onClick={this.toggleOn}
+            >
+              <input
+                type="radio"
+                name="options"
+                id="option1"
+                autoComplete="off"
+                defaultChecked
+              />
+              ON
+            </label>
+            <label
+              className="btn btn-sm btn-light text-dark"
+              id={this.printName() + "-off_toggle"}
+              onClick={this.toggleOff}
+            >
+              <input
+                type="radio"
+                name="options"
+                id="option2"
+                autoComplete="off"
+              />
+              OFF
+            </label>
+            <span
+              className="btn btn-sm btn-danger"
+              style={{ "display": buttonMode === "btn-danger" ? "none" : "default" }}
+              onClick={this.handleDisconnect}
+              id={this.printName() + "-disconnect_btn"}
+              title="Disconnect Account"
+            >
+              X
+            </span>
+            <span
+              className="btn btn-sm btn-success"
+              style={{ "display": buttonMode === "btn-success" ? "none" : "default" }}
+              onClick={this.handleReconnect}
+              id={this.printName() + "-reconnect_btn"}
+              title="Reconnect Account"
+            >
+              +
+            </span>
+          </div>
+        )}
       </button>
     );
   }

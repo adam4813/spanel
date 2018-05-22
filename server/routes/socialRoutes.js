@@ -1,12 +1,12 @@
 ﻿var express = require("express");
 var router = express.Router();
-var socialRouter = require("../social/socialRouter");
+var apiProxy = require("../social/apiProxy");
 
-router.post("/api/social/post", function(req, res, next) {
+router.post("/post", function(req, res, next) {
   if (!req.user) {
     res.status(401).end();
   } else {
-    socialRouter.postMessage(req.user, req.body.accounts, req.body.message);
+    apiProxy.postMessage(req.user, req.body.accounts, req.body.message);
     res.status(200).end();
   }
 });

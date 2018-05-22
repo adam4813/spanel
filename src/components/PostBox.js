@@ -19,14 +19,14 @@ class PostBox extends Component {
 
   render() {
     return (
-      <div className="col-auto">
+      <div className="col-auto message-box" id="primary-message-box">
         <label>
-          Message:
+          Message&nbsp;
           <input
             type="test"
             name="message"
             value={this.state.message}
-            id="messageInputBox"
+            id="post-message"
             onChange={this.handleChange}
           />
         </label>
