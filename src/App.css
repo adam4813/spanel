@@ -73,3 +73,15 @@
     overflow: hidden;
     height: 100vh;
 }
+
+.btn-xs {
+    padding: .25rem .5rem;
+    font-size: .656rem;
+    line-height: 1.0;
+    border-radius: .1rem;
+}
+
+.round-right-0 {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}

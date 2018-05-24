@@ -41,25 +41,27 @@ class App extends Component {
 
   toggleAccount = (account, active, accountId) => {
     this.setState(state => {
-      let activeAccounts = [...state.activeAccounts];
+      var activeAccounts;
       if (active) {
-        let i = state.activeAccounts.findIndex(element => {
-          return element === accountId;
-        });
-        if (i === -1) {
-          activeAccounts.push(accountId);
+        const index = state.activeAccounts.findIndex(
+          element => element === accountId
+        );
+        if (index === -1) {
+          activeAccounts = [...state.activeAccounts, accountId];
         }
       } else {
-        let i = state.activeAccounts.findIndex(element => {
-          return element === accountId;
-        });
+        const index = state.activeAccounts.findIndex(
+          element => element === accountId
+        );
         activeAccounts = [
-          ...state.activeAccounts.slice(0, i),
-          ...state.activeAccounts.slice(i + 1)
+          ...state.activeAccounts.slice(0, index),
+          ...state.activeAccounts.slice(index + 1)
         ];
       }
       return {
         activeAccounts: activeAccounts
+          ? activeAccounts
+          : [...state.activeAccounts]
       };
     });
   };
@@ -104,9 +106,9 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="container whole-screen">
+        <div className="whole-screen">
           <div
-            className="row justify-content-center"
+            className="bg-dark row justify-content-center text-light"
             style={{ fontSize: "xx-large", fontWeight: "bold" }}
           >
             Social Media Cross Poster
@@ -119,23 +121,24 @@ class App extends Component {
           />
           <Switch>
             <Route exact path="/">
-              <div>
-                <PostArea />
-                <hr />
-                <div className="row justify-content-center">
-                  <AccountList
-                    {...this.state}
-                    toggleAccount={this.toggleAccount}
-                  />
+              <div className="row whole-screen">
+                <AccountList
+                  {...this.state}
+                  toggleAccount={this.toggleAccount}
+                />
+                <div className="col">
+                  <PostArea />
                 </div>
-                <div className="row justify-content-center">
-                  <div className="col col-6">
-                    <button
-                      className="btn btn-lg btn-block btn-dark"
-                      onClick={this.handleSubmit}
-                    >
-                      Send
-                    </button>
+                <div className="col col-auto bg-light">
+                  <div className="row justify-content-center h-100 align-items-center">
+                    <div className="col">
+                      <button
+                        className="btn btn-lg btn-block btn-dark"
+                        onClick={this.handleSubmit}
+                      >
+                        Send
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

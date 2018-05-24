@@ -19,7 +19,7 @@ class ShrinkableArea extends Component {
     button.style.visibility = "hidden";
     button.addEventListener(
       "transitionend",
-      function (event) {
+      function(event) {
         button.style.display = "none";
       },
       false

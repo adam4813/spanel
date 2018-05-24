@@ -19,7 +19,7 @@ class PostBox extends Component {
 
   render() {
     return (
-      <div className="col-auto message-box" id="primary-message-box">
+      <div className="message-box" id="primary-message-box">
         <label>
           Message&nbsp;
           <input

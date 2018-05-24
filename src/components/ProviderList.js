@@ -11,8 +11,10 @@ class ProviderList extends Component {
   render() {
     return (
       <div>
-        <div className="row justify-content-center"
-          style={{ fontSize: "x-large" }}>
+        <div
+          className="row justify-content-center"
+          style={{ fontSize: "x-large" }}
+        >
           Please Login
         </div>
         <div className="row justify-content-center">
