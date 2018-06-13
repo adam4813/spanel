@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import MessageDialogArea from "./components/MessageDialogArea";
+import MessageBox from "./components/MessageBox";
 import AccountList from "./components/AccountList";
 import ProviderList from "./components/ProviderList";
 
@@ -90,38 +90,39 @@ class App extends Component {
     return (
       <div className="container-fluid">
         <div
-          className="bg-dark row justify-content-center text-light"
+          className="row justify-content-center"
           style={{ fontSize: "xx-large", fontWeight: "bold" }}
         >
-          Social Media Cross Poster
+          REVERBER
         </div>
         {this.state.profile ? (
-          <div className="row whole-screen">
-            <AccountList {...this.state} toggleAccount={this.toggleAccount} />
-            <div className="col">
-              <MessageDialogArea />
+          <div className="whole-screen">
+            <div className="row justify-content-center p-5">
+              <MessageBox />
             </div>
-            <div className="col col-auto bg-light">
-              <div className="row justify-content-center h-100 align-items-center">
-                <div className="col">
-                  <button
-                    className="btn btn-lg btn-block btn-dark"
-                    onClick={this.handleSubmit}
-                  >
-                    Send
-                  </button>
-                </div>
-              </div>
+            <div className="row justify-content-center">
+              <AccountList {...this.state} toggleAccount={this.toggleAccount} />
+            </div>
+            <div className="row justify-content-center">
+              <button
+                className="col-auto btn btn-lg btn-dark"
+                onClick={this.handleSubmit}
+              >
+                Send
+              </button>
             </div>
           </div>
         ) : (
-          <div
-            className="row justify-content-center"
-            style={{ fontSize: "x-large" }}
-          >
-            Please Login
-            <div class="w-100" />
-            <ProviderList />
+          <div>
+            <div
+              className="row justify-content-center"
+              style={{ fontSize: "x-large", fontWeight: "bold" }}
+            >
+              Please Login
+            </div>
+            <div className="row justify-content-center">
+              <ProviderList />
+            </div>
           </div>
         )}
       </div>

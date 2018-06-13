@@ -10,7 +10,9 @@ const customStyles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
+    paddingRight: "30px",
+    paddingLeft: "30px"
   }
 };
 
@@ -52,12 +54,14 @@ class AddAccountDialog extends Component {
       >
         <div
           className="row justify-content-center"
-          style={{ fontSize: "x-large" }}
+          style={{ fontSize: "x-large", fontWeight: "bold" }}
         >
           <span ref={subtitle => (this.subtitle = subtitle)}>Add Accont</span>
-          <div class="w-100" />
+        </div>
+        <div className="row justify-content-center">
           <ProviderList />
-          <div class="w-100" />
+        </div>
+        <div className="row justify-content-center">
           <button onClick={this.closeModal}>Cancel</button>
         </div>
       </Modal>
