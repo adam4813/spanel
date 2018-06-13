@@ -11,8 +11,7 @@ class AccountButton extends Component {
 
     let profile = this.props.profile;
     if (!profile || (profile.token === undefined || profile.token === null)) {
-      window.location =
-        "http://localhost:3001/auth/connect/" + this.printName();
+      window.location.href = "/api/auth/connect/" + this.printName();
     }
   };
 
@@ -20,12 +19,14 @@ class AccountButton extends Component {
     event.preventDefault();
     event.stopPropagation();
     event.target.style.display = "none";
-    document.getElementById("google-disconnect_btn").style.display = "default";
+    document.getElementById(
+      this.printName() + "-disconnect_btn"
+    ).style.display =
+      "default";
 
     let profile = this.props.profile;
     if (!profile || (profile.token === undefined || profile.token === null)) {
-      window.location =
-        "http://localhost:3001/auth/connect/" + this.printName();
+      window.location.href = "/api/auth/connect/" + this.printName();
     }
   };
 
@@ -35,8 +36,7 @@ class AccountButton extends Component {
     event.target.style.display = "none";
     document.getElementById(this.printName() + "-reconnect_btn").style.display =
       "default";
-    window.location =
-      "http://localhost:3001/auth/disconnect/" + this.printName();
+    window.location.href = "/api/auth/disconnect/" + this.printName();
   };
 
   toggleOn = event => {

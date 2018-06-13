@@ -8,8 +8,8 @@ router.get("/twitter", passport.authenticate("twitter"));
 router.get(
   "/twitter/callback",
   passport.authenticate("twitter", {
-    successRedirect: "/success",
-    failureRedirect: "/login"
+    successRedirect: "/api/success",
+    failureRedirect: "/api/login"
   })
 );
 router.get("/connect/twitter", passport.authorize("twitter"));
@@ -31,15 +31,15 @@ router.get("/disconnect/twitter", function(req, res) {
       console.log("twitter updated");
     }
   );
-  res.redirect("http://localhost:3000/success");
+  res.redirect("/api/success");
 });
 
 router.get("/facebook", passport.authenticate("facebook"));
 router.get(
   "/facebook/callback",
   passport.authenticate("facebook", {
-    successRedirect: "/success",
-    failureRedirect: "/login"
+    successRedirect: "/api/success",
+    failureRedirect: "/api/login"
   })
 );
 router.get("/connect/facebook", passport.authorize("facebook"));
@@ -74,7 +74,7 @@ router.get("/disconnect/facebook", function(req, res) {
           }
         );
       }
-      res.redirect("http://localhost:3000/success");
+      res.redirect("/api/success");
     });
 });
 
@@ -82,8 +82,8 @@ router.get("/google", passport.authenticate("google"));
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/success",
-    failureRedirect: "/login"
+    successRedirect: "/api/success",
+    failureRedirect: "/api/login"
   })
 );
 router.get("/connect/google", passport.authorize("google"));
@@ -116,7 +116,7 @@ router.get("/disconnect/google", function(req, res) {
           }
         );
       }
-      res.redirect("http://localhost:3000/success");
+      res.redirect("/api/success");
     });
 });
 
@@ -124,8 +124,8 @@ router.get("/twitch", passport.authenticate("twitch"));
 router.get(
   "/twitch/callback",
   passport.authenticate("twitch", {
-    successRedirect: "/success",
-    failureRedirect: "/login"
+    successRedirect: "/api/success",
+    failureRedirect: "/api/login"
   })
 );
 router.get("/connect/twitch", passport.authorize("twitch"));
@@ -161,7 +161,7 @@ router.get("/disconnect/twitch", function(req, res) {
           }
         );
       }
-      res.redirect("http://localhost:3000/success");
+      res.redirect("/api/success");
     });
 });
 

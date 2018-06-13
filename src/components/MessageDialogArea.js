@@ -1,9 +1,9 @@
 ﻿import React from "react";
 import ShrinkableArea from "./ShrinkableArea";
 
-import PostBox from "./PostBox";
+import MessageBox from "./MessageBox";
 
-class PostArea extends ShrinkableArea {
+class MessageDialogArea extends ShrinkableArea {
   constructor(props) {
     super(props, "post-area", "customize-button", "10vh");
   }
@@ -16,7 +16,7 @@ class PostArea extends ShrinkableArea {
       >
         <div className="row">
           <div className="col">
-            <PostBox />
+            <MessageBox />
           </div>
         </div>
         <div className="row">
@@ -35,4 +35,4 @@ class PostArea extends ShrinkableArea {
   }
 }
 
-export default PostArea;
+export default MessageDialogArea;

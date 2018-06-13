@@ -1,10 +1,7 @@
 ﻿import React, { Component } from "react";
 import Modal from "react-modal";
 
-import GoogleLogin from "./GoogleLogin";
-import FacebookLogin from "./FacebookLogin";
-import TwitterLogin from "./TwitterLogin";
-import TwitchLogin from "./TwitchLogin";
+import ProviderList from "../ProviderList";
 
 const customStyles = {
   content: {
@@ -53,16 +50,16 @@ class AddAccountDialog extends Component {
         contentLabel="Example Modal"
         appElement={document.getElementById("root")}
       >
-        <h2 ref={subtitle => (this.subtitle = subtitle)}>Add Accont</h2>
-        <div className="btn-toolbar" id="account-list" role="toolbar">
-          <div className="btn-group-vertical" role="group">
-            <GoogleLogin />
-            <FacebookLogin />
-            <TwitterLogin />
-            <TwitchLogin />
-          </div>
+        <div
+          className="row justify-content-center"
+          style={{ fontSize: "x-large" }}
+        >
+          <span ref={subtitle => (this.subtitle = subtitle)}>Add Accont</span>
+          <div class="w-100" />
+          <ProviderList />
+          <div class="w-100" />
+          <button onClick={this.closeModal}>Cancel</button>
         </div>
-        <button onClick={this.closeModal}>Cancel</button>
       </Modal>
     );
   }

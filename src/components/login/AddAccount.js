@@ -10,7 +10,7 @@ class AddAccount extends Component {
     };
   }
   printName() {
-    return "Add";
+    return "Add Account";
   }
 
   openModal = () => {

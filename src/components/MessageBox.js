@@ -1,6 +1,6 @@
 ﻿import React, { Component } from "react";
 
-class PostBox extends Component {
+class MessageBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,4 +35,4 @@ class PostBox extends Component {
   }
 }
 
-export default PostBox;
+export default MessageBox;

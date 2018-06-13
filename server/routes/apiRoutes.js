@@ -5,15 +5,15 @@ var axios = require("axios");
 var user = require("../models/user");
 var config = require("../config/_config");
 
-router.get("/login", function(req, res, next) {
-  res.send("Go back and register!");
+router.get("/login", function (req, res, next) {
+  res.status(401).end();
 });
 router.get("/success", function(req, res, next) {
-  res.redirect("http://localhost:3000/success");
+  res.redirect("/");
 });
-router.get("/api/profile", function(req, res, next) {
+router.get("/profile", function(req, res, next) {
   if (!req.user) {
-    res.status(401);
+    res.status(401).end();
   } else {
     res.json(req.user);
   }

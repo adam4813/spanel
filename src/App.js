@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 
-import PostArea from "./components/PostArea";
+import MessageDialogArea from "./components/MessageDialogArea";
 import AccountList from "./components/AccountList";
 import ProviderList from "./components/ProviderList";
 
@@ -28,15 +27,11 @@ class App extends Component {
       credentials: "include",
       method: "POST",
       body: JSON.stringify(data)
-    })
-      .then(response => {
-        if (response.ok) {
-          return;
-        }
-      })
-      .then(data => {
-        //this.setState({ profile: data });
-      });
+    }).then(response => {
+      if (response.ok) {
+        return;
+      }
+    });
   };
 
   toggleAccount = (account, active, accountId) => {
@@ -77,8 +72,6 @@ class App extends Component {
       .then(response => {
         if (response.ok) {
           return response.json();
-        } else {
-          console.log(response.toString());
         }
       })
       .then(data => {
@@ -93,62 +86,45 @@ class App extends Component {
       });
   }
 
-  redirectForLogin(state, location) {
-    if (!state.profile && location.pathname !== "/login") {
-      return <Redirect to="/login" />;
-    } else if (state.profile && location.pathname === "/login") {
-      return <Redirect to="/" />;
-    } else {
-      return "";
-    }
-  }
-
   render() {
     return (
-      <BrowserRouter>
-        <div className="whole-screen">
-          <div
-            className="bg-dark row justify-content-center text-light"
-            style={{ fontSize: "xx-large", fontWeight: "bold" }}
-          >
-            Social Media Cross Poster
-          </div>
-          <Route
-            path="/"
-            render={({ location }) => {
-              return this.redirectForLogin(this.state, location);
-            }}
-          />
-          <Switch>
-            <Route exact path="/">
-              <div className="row whole-screen">
-                <AccountList
-                  {...this.state}
-                  toggleAccount={this.toggleAccount}
-                />
+      <div className="container-fluid">
+        <div
+          className="bg-dark row justify-content-center text-light"
+          style={{ fontSize: "xx-large", fontWeight: "bold" }}
+        >
+          Social Media Cross Poster
+        </div>
+        {this.state.profile ? (
+          <div className="row whole-screen">
+            <AccountList {...this.state} toggleAccount={this.toggleAccount} />
+            <div className="col">
+              <MessageDialogArea />
+            </div>
+            <div className="col col-auto bg-light">
+              <div className="row justify-content-center h-100 align-items-center">
                 <div className="col">
-                  <PostArea />
-                </div>
-                <div className="col col-auto bg-light">
-                  <div className="row justify-content-center h-100 align-items-center">
-                    <div className="col">
-                      <button
-                        className="btn btn-lg btn-block btn-dark"
-                        onClick={this.handleSubmit}
-                      >
-                        Send
-                      </button>
-                    </div>
-                  </div>
+                  <button
+                    className="btn btn-lg btn-block btn-dark"
+                    onClick={this.handleSubmit}
+                  >
+                    Send
+                  </button>
                 </div>
               </div>
-            </Route>
-            <Route exact path="/login">
-              <ProviderList />
-            </Route>
-          </Switch>
-        </div>
-      </BrowserRouter>
+            </div>
+          </div>
+        ) : (
+          <div
+            className="row justify-content-center"
+            style={{ fontSize: "x-large" }}
+          >
+            Please Login
+            <div class="w-100" />
+            <ProviderList />
+          </div>
+        )}
+      </div>
     );
   }
 }
