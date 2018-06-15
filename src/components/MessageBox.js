@@ -4,17 +4,14 @@ class MessageBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: "New status."
+      message: ""
     };
   }
 
   handleChange = e => {
     e.preventDefault();
+    this.props.messageUpdated(e.target.value);
     this.setState({ message: e.target.value });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
   };
 
   render() {

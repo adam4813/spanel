@@ -9,7 +9,7 @@ var endpoints = {
 };
 
 var ApiProxy = {
-  postMessage: function(user, accounts, message) {
+  postMessage: function(user, accounts, messageList) {
     for (var account in accounts) {
       let index = user.accounts.findIndex(element => {
         return element._id.toString() === accounts[account];
@@ -18,7 +18,7 @@ var ApiProxy = {
         if (endpoints[user.accounts[index].provider]) {
           endpoints[user.accounts[index].provider](
             user.accounts[index],
-            message
+            messageList[accounts[account]]
           );
         }
       }

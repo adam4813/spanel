@@ -16,8 +16,19 @@ class App extends Component {
     let accountPostList = this.state.activeAccounts
       ? this.state.activeAccounts
       : [];
+    let baseMessage = this.state.message;
+    let messageList = {};
+    for (let i = 0; i < this.state.activeAccounts.length; i++) {
+      let providerName = this.state.profile.accounts.find(item => {
+        return item._id === this.state.activeAccounts[i];
+      }).provider;
+      let appendMessage = document.getElementById(providerName + "-append")
+        .value;
+      messageList[this.state.activeAccounts[i]] =
+        baseMessage + " " + appendMessage;
+    }
     var data = {
-      message: document.getElementById("post-message").value,
+      messageList: messageList,
       accounts: accountPostList
     };
     fetch("/api/social/post", {
@@ -61,6 +72,12 @@ class App extends Component {
     });
   };
 
+  messageUpdated = msg => {
+    this.setState(state => {
+      return { message: msg };
+    });
+  };
+
   componentWillMount() {
     fetch("/api/profile", {
       headers: {
@@ -98,7 +115,10 @@ class App extends Component {
         {this.state.profile ? (
           <div className="whole-screen">
             <div className="row justify-content-center p-5">
-              <MessageBox />
+              <MessageBox
+                {...this.state}
+                messageUpdated={this.messageUpdated}
+              />
             </div>
             <div className="row justify-content-center">
               <AccountList {...this.state} toggleAccount={this.toggleAccount} />

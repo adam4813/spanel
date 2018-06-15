@@ -21,11 +21,8 @@ class AccountList extends Component {
       return null;
     } else {
       return (
-        <div
-          className="bg-dark col col-auto pr-0"
-          style={{ paddingTop: "10vh" }}
-        >
-          <div className="d-flex align-items-start flex-column h-75">
+        <div className="col-auto">
+          <div className="d-flex align-items-start flex-column">
             <div className="mb-auto pl-2">
               <div id="account-list-header">Account List =</div>
               <div className="btn-toolbar" id="account-list" role="toolbar">
@@ -37,7 +34,10 @@ class AccountList extends Component {
                         key={index}
                         profile={Item}
                         toggleAccount={this.props.toggleAccount}
-                      />
+                      >
+                        <span>{this.props.message}&nbsp;</span>
+                        <input id={Item.provider + "-append"} type="text" />
+                      </Button>
                     );
                   })}
                 </div>

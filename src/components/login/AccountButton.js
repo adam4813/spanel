@@ -78,17 +78,18 @@ class AccountButton extends Component {
     return (
       <button
         id={this.printName() + "-button"}
+        onClick={this.props.login ? this.handleClick : () => {}}
         className={
-          "text-left p-1 border border-right-0 round-right-0 btn " + buttonMode
+          "d-flex align-items-center justify-content-end text-left p-2 border btn btn-lg " +
+          buttonMode
         }
-        onClick={this.handleClick}
       >
         <span className={"fa fa-lg fa-" + this.printName()}>
           {this.props.profile ? this.props.profile.name : this.printName()}
         </span>
         {this.props.login ? null : (
           <div
-            className="btn-group btn-group-toggle float-right p-1"
+            className="btn-group btn-group-toggle pr-2 pl-2 align-middle"
             data-toggle="buttons"
             id={this.printName() + "-on_toggle"}
             style={{ width: "auto" }}
@@ -143,6 +144,7 @@ class AccountButton extends Component {
             </span>
           </div>
         )}
+        {this.props.children}
       </button>
     );
   }

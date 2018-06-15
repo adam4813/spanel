@@ -80,8 +80,3 @@
     line-height: 1.0;
     border-radius: .1rem;
 }
-
-.round-right-0 {
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
