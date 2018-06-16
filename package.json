@@ -42,7 +42,8 @@
     "lint:watch": "npm run lint -- --watch",
     "start-concur": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node server/server.js",
-    "client": "npm start"
+    "client": "npm start",
+	"heroku-postbuild": "npm run build"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
