@@ -38,7 +38,7 @@ var authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
 var socialRoutes = require("./routes/socialRoutes");
 app.use("/api/social", socialRoutes);
-app.use(express.static("../build"));
+app.use(express.static("build"));
 // App init
 app.set("port", process.env.PORT || 3001);
 
