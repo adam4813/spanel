@@ -18,7 +18,10 @@ app.use(
     secret: "keyboard cat",
     resave: true,
     saveUninitialized: true,
-    rolling: false,
+    rolling: true,
+    cookie: {
+      maxAge: 7 * 24 * 3600 * 1000
+    },
     store: new MongooseStore({
       connection: mongoose
     })

@@ -117,13 +117,73 @@ module.exports = function(passport) {
     )
   );
 
-  function addOrUpdateProvider(userId, updateData, done) {
-    if (userId === null) {
-      User.create({ accounts: [updateData] }, function(err, user) {
+  function findAndUpdate(search, update, done) {
+    User.findOneAndUpdate(
+      search,
+      update,
+      {
+        upsert: true,
+        new: true
+      },
+      function(err, user) {
         if (err) {
           return done(err);
         } else {
           return done(null, user);
+        }
+      }
+    );
+  }
+
+  function addOrUpdateProvider(userId, updateData, done) {
+    if (userId === null) {
+      let search = {
+        accounts: {
+          $elemMatch: {
+            email: updateData.email
+          }
+        }
+      };
+      User.count(search, function(err, count) {
+        if (count === 0) {
+          User.create({ accounts: [updateData] }, function(err, user) {
+            if (err) {
+              return done(err);
+            } else {
+              return done(null, user);
+            }
+          });
+        } else {
+          let search = {
+            accounts: {
+              $elemMatch: {
+                email: updateData.email,
+                provider: updateData.provider
+              }
+            }
+          };
+          User.count(search, function(err, count) {
+            let update;
+            if (count === 0) {
+              search = {
+                accounts: {
+                  $elemMatch: {
+                    email: updateData.email
+                  }
+                }
+              };
+              update = {
+                $push: {
+                  accounts: [updateData]
+                }
+              };
+            } else {
+              update = {
+                $set: { "accounts.$": updateData }
+              };
+            }
+            findAndUpdate(search, update, done);
+          });
         }
       });
     } else {
@@ -136,9 +196,8 @@ module.exports = function(passport) {
         }
       };
       User.count(search, function(err, count) {
-        var update;
-        if (count == 0) {
-          // Just search with the userId as the userId/provider combo doesn't exists, but the userId might.
+        let update;
+        if (count === 0) {
           search = { _id: userId };
           update = {
             $push: {
@@ -150,21 +209,7 @@ module.exports = function(passport) {
             $set: { "accounts.$": updateData }
           };
         }
-        User.findOneAndUpdate(
-          search,
-          update,
-          {
-            upsert: true,
-            new: true
-          },
-          function(err, user) {
-            if (err) {
-              return done(err);
-            } else {
-              return done(null, user);
-            }
-          }
-        );
+        findAndUpdate(search, update, done);
       });
     }
   }
