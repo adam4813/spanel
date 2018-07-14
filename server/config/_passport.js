@@ -20,9 +20,9 @@ module.exports = function(passport) {
   passport.use(
     new TwitterStrategy(
       {
-        consumerKey: config.twitter.consumerKey,
-        consumerSecret: config.twitter.consumerSecret,
-        callbackURL: config.twitter.callbackURL,
+        consumerKey: process.env.twtConsumerKey,
+        consumerSecret: process.env.twtConsumerSecret,
+        callbackURL: process.env.HOSTNAME + process.env.twtCallbackURL,
         profileFields: ["id", "email", "displayName"],
         scope: ["email"],
         passReqToCallback: true
@@ -45,9 +45,9 @@ module.exports = function(passport) {
   passport.use(
     new FacebookStrategy(
       {
-        clientID: config.facebook.clientID,
-        clientSecret: config.facebook.clientSecret,
-        callbackURL: config.facebook.callbackURL,
+        clientID: process.env.fbClientID,
+        clientSecret: process.env.fbClientSecret,
+        callbackURL: process.env.HOSTNAME + process.env.fbCallbackURL,
         profileFields: ["id", "email", "displayName"],
         scope: ["email", "publish_actions"],
         passReqToCallback: true
@@ -70,9 +70,9 @@ module.exports = function(passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: config.google.clientID,
-        clientSecret: config.google.clientSecret,
-        callbackURL: config.google.callbackURL,
+        clientID: process.env.googClientID,
+        clientSecret: process.env.googClientSecret,
+        callbackURL: process.env.HOSTNAME + process.env.googCallbackURL,
         profileFields: ["id", "email", "displayName"],
         scope: ["https://www.googleapis.com/auth/plus.login", "email"],
         passReqToCallback: true
@@ -95,9 +95,9 @@ module.exports = function(passport) {
   passport.use(
     new TwitchStrategy(
       {
-        clientID: config.twitch.clientID,
-        clientSecret: config.twitch.clientSecret,
-        callbackURL: config.twitch.callbackURL,
+        clientID: process.env.twchClientID,
+        clientSecret: process.env.twchClientSecret,
+        callbackURL: process.env.HOSTNAME + process.env.twchCallbackURL,
         profileFields: ["id", "email", "displayName"],
         scope: ["channel_feed_edit", "user_read"],
         passReqToCallback: true
