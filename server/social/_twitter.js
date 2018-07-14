@@ -1,10 +1,9 @@
 ﻿var Twitter = require("twitter");
-var config = require("../config/_config");
 
 module.exports = function(user, message) {
   let client = new Twitter({
-    consumer_key: config.twitter.consumerKey,
-    consumer_secret: config.twitter.consumerSecret,
+    consumer_key: process.env.twtConsumerKey,
+    consumer_secret: process.env.twtConsumerSecret,
     access_token_key: user.token,
     access_token_secret: user.secret
   });

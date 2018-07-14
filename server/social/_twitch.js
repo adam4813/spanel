@@ -1,5 +1,4 @@
 ﻿var axios = require("axios");
-var config = require("../config/_config");
 
 module.exports = function(user, message) {
   axios
@@ -8,7 +7,7 @@ module.exports = function(user, message) {
       { content: message },
       {
         headers: {
-          "Client-ID": config.twitch.clientID,
+          "Client-ID": process.env.twchClientID,
           Authorization: "OAuth " + user.token,
           "Content-Type": "application/json",
           Accept: "application/vnd.twitchtv.v5+json"

@@ -130,7 +130,6 @@ router.get(
 );
 router.get("/connect/twitch", passport.authorize("twitch"));
 
-var config = require("../config/_config");
 router.get("/disconnect/twitch", function(req, res) {
   let index = req.user.accounts.findIndex(element => {
     return element.provider === "twitch";
@@ -138,7 +137,7 @@ router.get("/disconnect/twitch", function(req, res) {
   axios
     .post(
       "https://id.twitch.tv/oauth2/revoke?client_id=" +
-        config.twitch.clientID +
+        process.env.twchClientID +
         "&token=" +
         req.user.accounts[index].token
     )

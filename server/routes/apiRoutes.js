@@ -3,7 +3,6 @@ var passport = require("passport");
 var router = express.Router();
 var axios = require("axios");
 var user = require("../models/user");
-var config = require("../config/_config");
 
 router.get("/login", function (req, res, next) {
   res.status(401).end();
