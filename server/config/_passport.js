@@ -4,7 +4,6 @@ var GoogleStrategy = require("passport-google-oauth20").Strategy;
 var TwitchStrategy = require("passport-twitch").Strategy;
 
 var User = require("../models/user");
-var config = require("./_config");
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
