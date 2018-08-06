@@ -6,9 +6,9 @@ var session = require("express-session");
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var mongoose = require("mongoose");
-var Store = require("express-session").Store;
-var MongooseStore = require("mongoose-express-session")(Store);
 mongoose.connect("mongodb://spanel:abcd1234@ds249798.mlab.com:49798/spanel");
+
+const MongoStore = require('connect-mongo')(session);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,8 +22,9 @@ app.use(
     cookie: {
       maxAge: 7 * 24 * 3600 * 1000
     },
-    store: new MongooseStore({
-      connection: mongoose
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      autoRemove: 'disabled'
     })
   })
 );

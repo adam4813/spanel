@@ -27,25 +27,6 @@
   to { transform: rotate(360deg); }
 }
 
-@media (max-width: 600px) {
-    #account-list-header {
-        display: flex;
-    }
-    #account-list {
-        display: none;
-    }
-}
-
-@media (min-width: 600px) {
-    #account-list-header {
-        display: none;
-    }
-
-    #account-list {
-        display: flex;
-    }
-}
-
 #primary-message-box {
     font-size: xx-large;
 }
@@ -79,4 +60,8 @@
     font-size: .656rem;
     line-height: 1.0;
     border-radius: .1rem;
+}
+
+.btn.active {
+    z-index: 0 !important;
 }

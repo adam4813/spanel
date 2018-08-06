@@ -14,8 +14,6 @@ class AccountList extends Component {
     twitch: TwitchLogin
   };
 
-  renderAccontList() {}
-
   render() {
     if (this.props.profile === undefined) {
       return null;
@@ -24,7 +22,6 @@ class AccountList extends Component {
         <div className="col-auto">
           <div className="d-flex align-items-start flex-column">
             <div className="mb-auto pl-2">
-              <div id="account-list-header">Account List =</div>
               <div className="btn-toolbar" id="account-list" role="toolbar">
                 <div className="btn-group-vertical w-100" role="group">
                   {this.props.profile.accounts.map((Item, index) => {

@@ -117,6 +117,9 @@ router.get("/disconnect/google", function(req, res) {
         );
       }
       res.redirect("/api/success");
+    })
+    .catch(function(err) {
+      console.log(err);
     });
 });
 
@@ -161,6 +164,9 @@ router.get("/disconnect/twitch", function(req, res) {
         );
       }
       res.redirect("/api/success");
+    })
+    .catch(function(err) {
+      console.log(err);
     });
 });
 
